@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" /In TxtSpider.au3 /console
