@@ -91,8 +91,8 @@ Local $name
 GetContentURL($novel_addr, $name, $title, $url)
 
 $cnt = UBound($url)
-_ArrayDisplay($title, $name&" 章节数： "& UBound($title))
-_ArrayDisplay($url, "Url "& $cnt)
+;_ArrayDisplay($title, $name&" 章节数： "& UBound($title))
+;_ArrayDisplay($url, "Url "& $cnt)
 ;~ ConsoleWrite($tok_title_reg)
 
 
