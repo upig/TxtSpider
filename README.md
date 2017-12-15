@@ -6,13 +6,13 @@ TxtSpider是一段autoit脚本，从网络下抓取小说存为合理的TXT格�
 
 微信公众号：ceo_note
 
-
+知乎专栏：https://zhuanlan.zhihu.com/ceonote
 
 ## TxtSpider 3.0
 
 2017年12月15日 
 
-新增支持对http://www.webnovel.com的小说抓取
+新增支持对http://www.webnovel.com 的小说抓取
 
 webnovel是起点英文网，对喜欢看网络小说又想学英语的朋友，简直是太适合不过了。所以txtspider新增支持对www.webnovel.com的小说抓取。配合chrome扩展linkclipper使用。
 
