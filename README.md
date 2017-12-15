@@ -12,11 +12,11 @@ TxtSpider是一段autoit脚本，从网络下抓取小说存为合理的TXT格�
 
 2017年12月15日 
 
-新增支持对www.webnovel.com的小说抓取
+新增支持对http://www.webnovel.com的小说抓取
 
 webnovel是起点英文网，对喜欢看网络小说又想学英语的朋友，简直是太适合不过了。所以txtspider新增支持对www.webnovel.com的小说抓取。配合chrome扩展linkclipper使用。
 
-1、进入某个小说的目录页面，比如（https://www.webnovel.com/book/7834223205001705/I%E2%80%99m-Really-a-Superstar），然后点击页面中的Table of Contents，确保显示出所有目录
+1、进入某个小说的目录页面，比如（https://www.webnovel.com/book/7834223205001705/I%E2%80%99m-Really-a-Superstar ), 然后点击页面中的Table of Contents，确保显示出所有目录
 
 3、点击linkclipper下载本页面的所有链接为一个csv文件
 
