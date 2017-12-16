@@ -101,7 +101,8 @@ $log = FileOpen("log.txt", 2+8)
 ConsoleWrite("开始下载："&$name&@CRLF)
 FileWrite($log, "开始下载："&$name&@CRLF)
 
-FileWrite($file, $name)
+FileWrite($file, "<h1>"& $name &"</h1>")
+
 For $i=0 To $cnt-1
     $str = GetSection($novel_addr&"/"&$url[$i])
 

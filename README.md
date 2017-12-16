@@ -22,6 +22,12 @@ webnovel是起点英文网，对喜欢看网络小说又想学英语的朋友，
 
 4、运行txtspider 3.0，选择此csv文件，即可开始下载小说。
 
+## TxtSpider 2.0
+
+新增支持对http://www.wuxiaworld.com/ast-index/的小说抓取
+
+请下载txtspider2.exe使用
+
 ## TxtSpider 1.0
 
 已经支持了笔趣阁( www.biquge.la )、少年文学、乐窝等小说网站。

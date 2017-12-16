@@ -5,10 +5,10 @@
 
 
 todo
-×Ô¶¯Ñ¡Ôñ±àÒë³ÉDOS¸ñÊ½
-Èç¹ûÃ»ÓĞINI£¬×Ô¶¯Éú³ÉÒ»¸ö£¬¸ø³öINIµÄ°æ±¾Óë¸üĞÂÈÕÆÚ
-¸ø³ö¹ÙÍøÍøÖ·£¬¿ÉÒÔ·ÃÎÊÓë¸üĞÂ£¬¸üĞÂINIÎÄ¼ş
-Í¨¹ı¶ÁÈ¡iniÎÄ¼ş£¬¸ø³öÏÂÀ­¿ò£¬¿ÉÒÔÌáÊ¾Ö§³ÖÄÄĞ©ÍøÕ¾
+è‡ªåŠ¨é€‰æ‹©ç¼–è¯‘æˆDOSæ ¼å¼
+å¦‚æœæ²¡æœ‰INIï¼Œè‡ªåŠ¨ç”Ÿæˆä¸€ä¸ªï¼Œç»™å‡ºINIçš„ç‰ˆæœ¬ä¸æ›´æ–°æ—¥æœŸ
+ç»™å‡ºå®˜ç½‘ç½‘å€ï¼Œå¯ä»¥è®¿é—®ä¸æ›´æ–°ï¼Œæ›´æ–°INIæ–‡ä»¶
+é€šè¿‡è¯»å–iniæ–‡ä»¶ï¼Œç»™å‡ºä¸‹æ‹‰æ¡†ï¼Œå¯ä»¥æç¤ºæ”¯æŒå“ªäº›ç½‘ç«™
 
 
 
@@ -30,25 +30,21 @@ $section_name_list = IniReadSectionNames ("TxtSpider.ini")
    $str_list = $str_list & @CRLF & $section_name_list[$i]
  Next
 
-; Display an open dialog to select a file.
-Local $novel_addr = FileOpenDialog("Select WebNovel Link File", @WorkingDir & "\", "All (*.csv)")
 
-        FileChangeDir(@ScriptDir)
+$novel_addr = InputBox( _
+"TxtSpider by XIANG Wei","å®˜ç½‘ï¼šhttps://github.com/upig/TxtSpider " _
+&@CRLF&@CRLF&"è¯·è¾“å…¥å°è¯´ç›®å½•é¡µç½‘å€ï¼ˆä¾‹å¦‚ http://www.biquge.la/book/3590/ï¼‰"&@CRLF&@CRLF&"æ”¯æŒçš„å°è¯´ç½‘ç«™åˆ—è¡¨ï¼š"&@CRLF&$str_list, _
+"http://www.wuxiaworld.com/ast-index/", "", _
+600,300);
 
-;~ $novel_addr = InputBox( _
-;~ "TxtSpider by XIANG Wei","¹ÙÍø£ºhttps://github.com/upig/TxtSpider " _
-;~ &@CRLF&@CRLF&"ÇëÊäÈëĞ¡ËµÄ¿Â¼Ò³ÍøÖ·£¨ÀıÈç http://www.biquge.la/book/3590/£©"&@CRLF&@CRLF&"Ö§³ÖµÄĞ¡ËµÍøÕ¾ÁĞ±í£º"&@CRLF&$str_list, _
-;~ "https://www.webnovel.com/book/6831850602000905/Library-of-Heaven's-Path", "", _
-;~ 600,300);
-
-;$section_name_arr  = StringRegExp($novel_addr, "http.*//(.+?)/", 1)
+$section_name_arr  = StringRegExp($novel_addr, "http.*//(.+?)/", 1)
 
 If @error<>0 Then
-   MsgBox(0, "¾¯¸æ", "Ã»ÓĞÕÒµ½Æ¥ÅäµÄÍøÖ·±êÊ¶")
+   MsgBox(0, "è­¦å‘Š", "æ²¡æœ‰æ‰¾åˆ°åŒ¹é…çš„ç½‘å€æ ‡è¯†")
    Exit
 EndIf
 
-$section_key = IniReadSection("TxtSpider.ini", "www.webnovel.com")
+$section_key = IniReadSection("TxtSpider.ini", $section_name_arr[0])
 
 $tok_name_reg 		=$section_key[1][1]
 $tok_content_begin 	=$section_key[2][1]
@@ -62,22 +58,20 @@ $tok_strReplace2	=$section_key[9][1]
 
 
 Func GetContentURL($str, ByRef $name, ByRef $title, ByRef $url)
-    Local $dData = FileRead($str);'webnovel.com_13th_Dec_2017 - ¸±±¾.csv');
-    Local $sData = $dData
+    Local $dData = InetRead($str);
+    Local $sData = BinaryToString($dData)
 
-   $name = 'webnovel'
-   $title = 'webnovel'
-   $name = StringRegExp($sData, $tok_name_reg, 1);
-   $name = $name[0]
+    $name = StringRegExp($sData, $tok_name_reg, 1);
+	$name = $name[0]
 
-;~ 	$i = StringInStr($sData, $tok_content_begin)
-;~ 	$sData = StringMid($sData, $i)
-;~ 	$i = StringInStr($sData, $tok_content_end)
-;~ 	$sData = StringLeft($sData, $i)
+	$i = StringInStr($sData, $tok_content_begin)
+	$sData = StringMid($sData, $i)
+	$i = StringInStr($sData, $tok_content_end)
+	$sData = StringLeft($sData, $i)
 
 
-   $title = StringRegExp($sData, $tok_title_reg, 3);
-   $url= StringRegExp($sData, $tok_url_reg, 3);
+    $title = StringRegExp($sData, $tok_title_reg, 3);
+    $url= StringRegExp($sData, $tok_url_reg, 3);
 
  EndFunc   ;==>Example
 
@@ -97,36 +91,36 @@ Local $name
 GetContentURL($novel_addr, $name, $title, $url)
 
 $cnt = UBound($url)
-_ArrayDisplay($title, $name&" ÕÂ½ÚÊı£º "& UBound($title))
-_ArrayDisplay($url, "Url "& $cnt)
-ConsoleWrite($tok_title_reg)
-;Exit
+;_ArrayDisplay($title, $name&" ç« èŠ‚æ•°ï¼š "& UBound($title))
+;_ArrayDisplay($url, "Url "& $cnt)
+;~ ConsoleWrite($tok_title_reg)
+
 
 $file = FileOpen($name&".html",2+8)
 $log = FileOpen("log.txt", 2+8)
-ConsoleWrite("¿ªÊ¼ÏÂÔØ£º"&$name&@CRLF)
-FileWrite($log, "¿ªÊ¼ÏÂÔØ£º"&$name&@CRLF)
+ConsoleWrite("å¼€å§‹ä¸‹è½½ï¼š"&$name&@CRLF)
+FileWrite($log, "å¼€å§‹ä¸‹è½½ï¼š"&$name&@CRLF)
 
 FileWrite($file, "<h1>"& $name &"</h1>")
-For $i=1 To $cnt-1
-    $str = GetSection($url[$i])
+For $i=0 To $cnt-1
+    $str = GetSection($novel_addr&"/"&$url[$i])
 
  	$pos = StringInStr($str, $tok_txt_begin)+StringLen($tok_txt_begin)
 	$str = StringMid($str, $pos)
 	$pos = StringInStr($str, $tok_txt_end)
 	$str = StringLeft($str, $pos-1)
 	$str= StringRegExpReplace($str, "<p>\s*</p>", '')
-	$str= StringRegExpReplace($str, $tok_strReplace, '')
-	$str= StringRegExpReplace($str, $tok_strReplace2, '')
+	$str= StringReplace($str, $tok_strReplace, '')
+	$str= StringReplace($str, $tok_strReplace2, '')
 
-   ConsoleWrite("ÒÑ¾­ÏÂÔØ£º"&$title[$i]&@CRLF)
-   FileWrite($log, "ÒÑ¾­ÏÂÔØ£º"&$title[$i]&@CRLF)
+   ConsoleWrite("æ­£åœ¨ä¸‹è½½ï¼š"&$title[$i]&@CRLF)
+   FileWrite($log, "æ­£åœ¨ä¸‹è½½ï¼š"&$title[$i]&@CRLF)
    FileWrite($file, @CRLF&@CRLF&"<h1>"&$title[$i]&"</h1>"&@CRLF&@CRLF)
+
    FileWrite($file, $str)
-   ;ExitLoop
 Next
 
-FileWrite($log, "È«²¿ÏÂÔØÍê±Ï£¬¹²"&$cnt&"ÕÂ")
+FileWrite($log, "å…¨éƒ¨ä¸‹è½½å®Œæ¯•ï¼Œå…±"&$cnt&"ç« ")
 
 FileClose($file)
 FileClose($log)
