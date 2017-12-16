@@ -98,8 +98,9 @@ GetContentURL($novel_addr, $name, $title, $url)
 
 $cnt = UBound($url)
 _ArrayDisplay($title, $name&" 章节数： "& UBound($title))
-_ArrayDisplay($url, "Url "& $cnt)
-ConsoleWrite($tok_title_reg)
+;_ArrayDisplay($url, "Url "& $cnt)
+;ConsoleWrite($tok_title_reg)
+ConsoleWrite($name&" 章节数： "& UBound($title))
 ;Exit
 
 $file = FileOpen($name&".html",2+8)
@@ -121,7 +122,7 @@ For $i=1 To $cnt-1
 
    ConsoleWrite("已经下载："&$title[$i]&@CRLF)
    FileWrite($log, "已经下载："&$title[$i]&@CRLF)
-   FileWrite($file, @CRLF&@CRLF&"<h1>"&$title[$i]&"</h1>"&@CRLF&@CRLF)
+   FileWrite($file, @CRLF&@CRLF&"<h1>"&$i&" "&$title[$i]&"</h1>"&@CRLF&@CRLF)
    FileWrite($file, $str)
    ;ExitLoop
 Next
