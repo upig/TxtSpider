@@ -55,11 +55,13 @@ $tok_txt_begin 		=$section_key[6][1]
 $tok_txt_end 		=$section_key[7][1]
 $tok_strReplace 	=$section_key[8][1]
 $tok_strReplace2	=$section_key[9][1]
+$tok_strReplace3	=$section_key[10][1]
+$tok_strReplace4	=$section_key[11][1]
 
 
 Func GetContentURL($str, ByRef $name, ByRef $title, ByRef $url)
     Local $dData = InetRead($str);
-    Local $sData = BinaryToString($dData)
+    Local $sData = BinaryToString($dData, $SB_UTF8 )
 
     $name = StringRegExp($sData, $tok_name_reg, 1);
 	$name = $name[0]
@@ -110,8 +112,11 @@ For $i=0 To $cnt-1
 	$pos = StringInStr($str, $tok_txt_end)
 	$str = StringLeft($str, $pos-1)
 	$str= StringRegExpReplace($str, "<p>\s*</p>", '')
-	$str= StringReplace($str, $tok_strReplace, '')
-	$str= StringReplace($str, $tok_strReplace2, '')
+	$str= StringRegExpReplace($str, $tok_strReplace, '')
+	$str= StringRegExpReplace($str, $tok_strReplace2, '')
+	$str= StringRegExpReplace($str, $tok_strReplace3, '')
+	$str= StringRegExpReplace($str, $tok_strReplace4, '')
+
 
    ConsoleWrite("正在下载："&$title[$i]&@CRLF)
    FileWrite($log, "正在下载："&$title[$i]&@CRLF)
