@@ -34,7 +34,7 @@ $section_name_list = IniReadSectionNames ("TxtSpider.ini")
 $novel_addr = InputBox( _
 "TxtSpider by XIANG Wei","官网：https://github.com/upig/TxtSpider " _
 &@CRLF&@CRLF&"请输入小说目录页网址（例如 http://www.biquge.la/book/3590/）"&@CRLF&@CRLF&"支持的小说网站列表："&@CRLF&$str_list, _
-"http://www.wuxiaworld.com/ast-index/", "", _
+"https://www.wuxiaworld.com/novel/a-will-eternal", "", _
 600,300);
 
 $section_name_arr  = StringRegExp($novel_addr, "http.*//(.+?)/", 1)
@@ -66,6 +66,7 @@ Func GetContentURL($str, ByRef $name, ByRef $title, ByRef $url)
     $name = StringRegExp($sData, $tok_name_reg, 1);
 	$name = $name[0]
 
+
 	$i = StringInStr($sData, $tok_content_begin)
 	$sData = StringMid($sData, $i)
 	$i = StringInStr($sData, $tok_content_end)
@@ -73,12 +74,14 @@ Func GetContentURL($str, ByRef $name, ByRef $title, ByRef $url)
 
 
     $title = StringRegExp($sData, $tok_title_reg, 3);
+
     $url= StringRegExp($sData, $tok_url_reg, 3);
 
  EndFunc   ;==>Example
 
 
 Func GetSection($section_url)
+   ConsoleWrite($section_url)
     Local $dData = InetRead($section_url);
     Local $sData = BinaryToString($dData, $SB_UTF8 )
 	return $sData
@@ -105,7 +108,7 @@ FileWrite($log, "开始下载："&$name&@CRLF)
 
 FileWrite($file, "<h1>"& $name &"</h1>")
 For $i=0 To $cnt-1
-    $str = GetSection($novel_addr&"/"&$url[$i])
+    $str = GetSection("https://www.wuxiaworld.com"&$url[$i])
 
  	$pos = StringInStr($str, $tok_txt_begin)+StringLen($tok_txt_begin)
 	$str = StringMid($str, $pos)
